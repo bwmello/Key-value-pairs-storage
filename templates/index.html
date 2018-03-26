@@ -1,0 +1,25 @@
+<h1>Key Value Pairs</h1>
+
+{% include "flash_messages.html" %}
+
+<form method=post action="{{ url_for('index') }}">
+    {{ form.hidden_tag() }}
+    <input type=text size=30 name=key placeholder="Key">
+    <input type=text size=30 name=value placeholder="Value">
+    <input type=submit value=Create>
+    <div>{% for error in form.key.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}</div>
+</form>
+
+{% for kvp in kvps %}
+<form method=post action="{{ url_for('index') }}">
+    {{ form.hidden_tag() }}
+    <input type=text size=30 name=key value="{{ kvp.key }}" readonly>
+    <input type=text size=30 name=value value="{{ kvp.value }}">
+    <input type=submit value=Set>
+</form>
+{% endfor %}
+
+<br><br>
+<a href="{{ url_for('logout') }}">Logout</a>
